@@ -1,0 +1,9 @@
+# 字段模板，禁止填真实业务键。与 facade.aos.rcs.rule 领域对应。
+dataEnv: ""
+reserved: true
+keys:
+  sheinRuleCode: ""
+  nonSheinRuleCode: ""
+  ladingNumber: ""
+  internalCustomerCode: ""
+  expectedMaxCabins: ""

@@ -1,0 +1,15 @@
+# 本地私有子模块（含 secrets / sit-secrets.yaml / 测试元数据）
+pro-api-test-aos/
+
+# secrets
+secrets/*
+!secrets/*.example
+# classpath secrets（各模块 src/test/resources/secrets/ 下的账号密码）
+**/src/test/resources/secrets/*
+!**/src/test/resources/secrets/*.example
+
+# 其他
+target/
+.idea/
+*.iml
+src/test/resources/testdata/_local-override/

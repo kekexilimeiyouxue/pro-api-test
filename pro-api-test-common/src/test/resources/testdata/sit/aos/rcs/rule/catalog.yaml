@@ -1,0 +1,15 @@
+# 口岸规则领域占用键（与 test 包 aos.rcs.rule 对应）。P0 契约负例不读此文件。
+dataEnv: sit
+system: aos-rcs
+domain: rule
+reserved: true
+owner: ""
+recordedAt: ""
+source: "sit 预留：口岸规则自动化专用。键由能登录 sit 的人补。"
+purpose: "p714_23439 刷新 API 测"
+keys:
+  sheinRuleCode: ""
+  nonSheinRuleCode: ""
+  ladingNumber: ""
+  internalCustomerCode: ""
+  expectedMaxCabins: ""

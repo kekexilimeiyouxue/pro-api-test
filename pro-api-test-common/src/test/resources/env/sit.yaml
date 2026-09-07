@@ -1,0 +1,30 @@
+dataEnv: sit
+transport: gateway
+http:
+  connectTimeoutMs: 5000
+  readTimeoutMs: 30000
+  logBodies: true
+write:
+  allow: true
+  destructiveAllow: false
+gateway:
+  baseUrl: https://gateway.sit.yunexpress.com
+authProfiles:
+  portal-nebula:
+    type: nebula-portal
+services:
+  rcs:
+    authProfile: portal-nebula
+    gatewayPrefix: /gw/aos/aos/rcs
+    directBaseUrl: http://127.0.0.1:9091
+    resultStyle: aos-result-vo
+  dcs:
+    authProfile: portal-nebula
+    gatewayPrefix: /gw/aos/aos/dcs
+    directBaseUrl: http://127.0.0.1:9090
+    resultStyle: aos-result-vo
+  fts-portal:
+    authProfile: portal-nebula
+    gatewayPrefix: /fts-portal
+    directBaseUrl: http://127.0.0.1:5002
+    resultStyle: fts-result-vo

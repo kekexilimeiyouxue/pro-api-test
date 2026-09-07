@@ -1,0 +1,5 @@
+# 环境级索引；领域占用键见各子目录 catalog（如 aos/rcs/rule/catalog.yaml）
+dataEnv: sit
+reserved: true
+domains:
+  - aos/rcs/rule
