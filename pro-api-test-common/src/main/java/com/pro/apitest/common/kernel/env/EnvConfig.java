@@ -17,6 +17,8 @@ public class EnvConfig {
     private AuthEndpointConfig authEndpoint = new AuthEndpointConfig();
     private Map<String, AuthProfileConfig> authProfiles = new LinkedHashMap<String, AuthProfileConfig>();
     private Map<String, ServiceConfig> services = new LinkedHashMap<String, ServiceConfig>();
+    /** 可选：只读数据库连接；密码放 secrets 同 key。 */
+    private Map<String, DbConfig> db = new LinkedHashMap<String, DbConfig>();
 
     public String getDataEnv() {
         return dataEnv;
@@ -93,6 +95,33 @@ public class EnvConfig {
             return null;
         }
         return authProfiles.get(profile.trim());
+    }
+
+    public Map<String, DbConfig> getDb() {
+        return db;
+    }
+
+    public void setDb(Map<String, DbConfig> db) {
+        this.db = db == null ? new LinkedHashMap<String, DbConfig>() : db;
+    }
+
+    public static class DbConfig {
+        private String host = "";
+        private int port = 3306;
+        private String database = "";
+        private boolean readOnly = true;
+        private int connectTimeoutMs = 5000;
+
+        public String getHost() { return host; }
+        public void setHost(String host) { this.host = host == null ? "" : host.trim(); }
+        public int getPort() { return port; }
+        public void setPort(int port) { this.port = port; }
+        public String getDatabase() { return database; }
+        public void setDatabase(String database) { this.database = database == null ? "" : database.trim(); }
+        public boolean isReadOnly() { return readOnly; }
+        public void setReadOnly(boolean readOnly) { this.readOnly = readOnly; }
+        public int getConnectTimeoutMs() { return connectTimeoutMs; }
+        public void setConnectTimeoutMs(int connectTimeoutMs) { this.connectTimeoutMs = connectTimeoutMs; }
     }
 
     public static class HttpConfig {

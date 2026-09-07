@@ -17,6 +17,9 @@ public class Secrets {
     /** 档案名 -> 该档案的凭据键值（如 token / apiKey） */
     private Map<String, Map<String, String>> auth = new LinkedHashMap<String, Map<String, String>>();
 
+    /** db key -> { username, password } 凭据桶（密码不进 git） */
+    private Map<String, Map<String, String>> db = new LinkedHashMap<String, Map<String, String>>();
+
     public String getToken() {
         return token;
     }
@@ -31,6 +34,14 @@ public class Secrets {
 
     public void setAuth(Map<String, Map<String, String>> auth) {
         this.auth = auth == null ? new LinkedHashMap<String, Map<String, String>>() : auth;
+    }
+
+    public Map<String, Map<String, String>> getDb() {
+        return db;
+    }
+
+    public void setDb(Map<String, Map<String, String>> db) {
+        this.db = db == null ? new LinkedHashMap<String, Map<String, String>>() : db;
     }
 
     /**

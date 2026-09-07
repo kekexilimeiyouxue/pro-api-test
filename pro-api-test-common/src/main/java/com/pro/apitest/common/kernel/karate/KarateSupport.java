@@ -64,6 +64,7 @@ public final class KarateSupport {
     /**
      * 一次性算齐常用变量，返回 Map（供 karate-config.js 直接展开）。
      * key 约定：{service}.baseUrl / {service}.authHeaders / {service}.reachable。
+     * 额外透传：db.config（yaml 里 db 节点）、db.secrets（密钥 Map）。
      *
      * @param env 环境简称
      * @param serviceKeys 服务 key 数组
@@ -78,6 +79,9 @@ public final class KarateSupport {
             vars.put(key + ".authHeaders", ctx.headerFactory.build(id, "/"));
             vars.put(key + ".reachable", HostProbe.reachable(ctx.resolver.resolve(id, "/")));
         }
+        // 数据库配置透传（供 DbSupport 使用；密码走 secrets.db）
+        vars.put("db.config", ctx.config.getDb());
+        vars.put("db.secrets", ctx.secrets.getDb());
         return vars;
     }
 
@@ -85,8 +89,13 @@ public final class KarateSupport {
     private static final class Ctx {
         private final EndpointResolver resolver;
         private final AuthHeaderFactory headerFactory;
+        final EnvConfig config;
+        final Secrets secrets;
 
-        private Ctx(EndpointResolver resolver, AuthHeaderFactory headerFactory) {
+        private Ctx(EnvConfig config, Secrets secrets,
+                    EndpointResolver resolver, AuthHeaderFactory headerFactory) {
+            this.config = config;
+            this.secrets = secrets;
             this.resolver = resolver;
             this.headerFactory = headerFactory;
         }
@@ -101,7 +110,8 @@ public final class KarateSupport {
             EnvConfig config = loader.loadEnvConfig(dataEnv);
             Transport transport = Transport.fromRaw(config.getTransport());
             Secrets secrets = loader.loadSecrets(dataEnv);
-            return new Ctx(new EndpointResolver(config, transport),
+            return new Ctx(config, secrets,
+                    new EndpointResolver(config, transport),
                     new AuthHeaderFactory(config, transport, secrets));
         }
     }
